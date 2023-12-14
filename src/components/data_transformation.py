@@ -1,6 +1,5 @@
 import os
 import sys
-from src.components.data_ingestion import DataIngestion
 from src.logger import logging
 from src.exception import CustomException
 from dataclasses import dataclass
@@ -45,7 +44,7 @@ class DataTransformation:
             
             cat_pipeline = Pipeline(
                 steps=[
-                    ("imputer",SimpleImputer(strategy="most_frequence")),
+                    ("imputer",SimpleImputer(strategy="most_frequent")),
                     ("one_hot_encoder",OneHotEncoder()),
                     ("scaler",StandardScaler(with_mean=False))
                 ]
@@ -110,7 +109,6 @@ class DataTransformation:
             return (
                 train_arr,
                 test_arr,
-                self.data_transformation_config.preprocessor_obj_file_path,
             )
         except Exception as e:
             raise CustomException(e,sys)
